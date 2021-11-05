@@ -19,7 +19,7 @@ Using [api.jigarvarma.tk/img_captcha](https://api.jigarvarma.tk/img_captcha) and
 
 
 ### Heroku Deploy:
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Jigarvarma2005/Captcha-Pro-bot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Heyaaman-UB/Captcha-Pro-bot)
 
 ### Host Locally:
 ```shell

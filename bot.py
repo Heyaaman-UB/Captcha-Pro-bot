@@ -14,8 +14,7 @@ from helper.markup import MakeCaptchaMarkup
 app = Client(Config.SESSION_NAME, api_id=Config.APP_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
 # Local database for saving user info
 LocalDB = {}
-ch_markup = InlineKeyboardMarkup([[InlineKeyboardButton(text="Updates Channel", url="https://t.me/Universal_Projects"),
-                                    InlineKeyboardButton(text="Support Group", url="https://t.me/JV_Community")]])
+ch_markup = 
 BOT_UNAME = Config.BOT_USERNAME
 
 @app.on_chat_member_updated()
@@ -23,7 +22,7 @@ async def check_chat_captcha(client, message):
     user_id = message.from_user.id
     chat_id = message.chat.id
     if Config.API_TOKEN is None:
-        await client.send_message(chat_id, "Please get the apy key from @JV_Community")
+        await client.send_message(chat_id, "Please get the apy key from @KazukoSupportChat")
         return
     chat = manage_db().chat_in_db(chat_id)
     if not chat:
@@ -55,7 +54,7 @@ async def check_chat_captcha(client, message):
                 await client.send_message(
                     chat_id=chat_id,
                     text=f"{message.from_user.mention} again joined group without verifying!\n\n"
-                         f"He can try again after 10 minutes.",
+                         f"This user can try again after 10 minutes.",
                     disable_web_page_preview=True
                 )
                 await client.delete_messages(chat_id=chat_id,
@@ -77,7 +76,7 @@ async def check_chat_captcha(client, message):
 @app.on_message(filters.command(["captcha",f"captcha@{BOT_UNAME}"]) & ~filters.private)
 async def add_chat(bot, message):
     if Config.API_TOKEN is None:
-        await message.reply_text("Please get the apy key from @JV_Community")
+        await message.reply_text("Please get the apy key from @KazukoSupportChat")
         return
     chat_id = message.chat.id
     user_id = message.from_user.id
@@ -93,18 +92,18 @@ async def add_chat(bot, message):
         
 @app.on_message(filters.command(["help",f"help@{BOT_UNAME}"]))
 async def start_chat(bot, message):
-    await message.reply_text(text="/captcha - turn on captcha : There are two types of captcha\n/remove - turn off captcha\n\nfor more help ask in my support group",
+    await message.reply_text(text=
                              reply_markup=ch_markup)
     
 @app.on_message(filters.command(["start",f"start@{BOT_UNAME}"]))
 async def help_chat(bot, message):
-    await message.reply_text(text="I can help you to protect your group from bots using captcha.\n\nCheck /help to know more.",
+    await message.reply_text(text=
                              reply_markup=ch_markup)
     
 @app.on_message(filters.command(["remove",f"remove@{BOT_UNAME}"]) & ~filters.private)
 async def del_chat(bot, message):
     if Config.API_TOKEN is None:
-        await message.reply_text("Please get the apy key from @JV_Community")
+        await message.reply_text("Please get the apy key from @KazukoSupportChat")
         return
     chat_id = message.chat.id
     user = await bot.get_chat_member(message.chat.id, message.from_user.id)
@@ -230,7 +229,7 @@ async def cb_handler(bot, query):
             markup = MakeCaptchaMarkup(query.message["reply_markup"]["inline_keyboard"], _number, "✅")
             await query.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(markup))
             if not LocalDB[query.from_user.id]["answer"]:
-                await query.answer("You Passed🥳 the Captcha!", show_alert=True)
+                await query.answer("Wow,You Passed the Captcha!", show_alert=True)
                 del LocalDB[query.from_user.id]
                 await bot.unban_chat_member(chat_id=query.message.chat.id, user_id=query.from_user.id)
                 await query.message.delete(True)
